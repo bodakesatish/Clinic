@@ -1,6 +1,7 @@
 package com.bodakesatish.clinic.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,15 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.result.launch
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.bodakesatish.clinic.NavigationActivity
 import com.bodakesatish.clinic.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -41,6 +43,22 @@ class FragmentLogin : Fragment() {
         showKeyboard()
 //        viewModel.getSchemeList()
         setupForLoginWithPassword()
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLogin.collect { isLogin ->
+                    if(isLogin) {
+                        val intent = Intent(requireContext(), NavigationActivity::class.java)
+                        requireActivity().startActivity(intent)
+                        requireActivity().finish()
+                    }
+                }
+            }
+        }
     }
 
     // USERNAME + PASSWORD SECTION
@@ -78,10 +96,9 @@ class FragmentLogin : Fragment() {
         viewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
             if (loginResult.success) {
-                updateApp(
-                    "You successfully signed up using password as: user "
-                            //+ "${SampleAppUser.username} with fake token ${SampleAppUser.fakeToken}"
-                )
+                val intent = Intent(requireContext(), NavigationActivity::class.java)
+                requireActivity().startActivity(intent)
+                requireActivity().finish()
             }else {
                 updateApp(
                     "Failed to signed up"

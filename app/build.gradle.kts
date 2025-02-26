@@ -50,8 +50,14 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     // Hilt
     implementation(libs.hilt.android.core)
+    implementation(libs.androidx.datastore.core.android)
     kapt(libs.hilt.compiler)
 
     // Navigation
@@ -67,6 +73,9 @@ dependencies {
     //Excel
     implementation(libs.poi)
     implementation(libs.poi.ooxml)
+
+    //Datastore
+    implementation(libs.androidx.datastore.preferences)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

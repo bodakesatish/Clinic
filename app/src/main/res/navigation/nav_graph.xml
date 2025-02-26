@@ -9,4 +9,5 @@
         android:name="com.bodakesatish.clinic.login.FragmentLogin"
         android:label="Login"
         app:defaultNavHost="true" />
+
 </navigation>

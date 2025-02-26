@@ -8,14 +8,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bodakesatish.clinic.R
+import com.bodakesatish.clinic.datastore.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelLogin @Inject constructor(
 //    private val loginUseCase: LoginUseCase,
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
@@ -24,11 +27,9 @@ class ViewModelLogin @Inject constructor(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    private val tag = this.javaClass.simpleName
+    val isLogin: Flow<Boolean> =  dataStoreManager.readAppEntry()
 
-    init {
-        Log.d(tag, "In $tag init")
-    }
+    private val tag = this.javaClass.simpleName
 
     fun onUserNameChanged(username: String) {
         if (!isUserNameValid(username)) {
@@ -67,9 +68,16 @@ class ViewModelLogin @Inject constructor(
         onUserNameChanged(username)
         onPasswordChanged(password)
         if ((isUserNameValid(username) && isPasswordValid(password)) && (username == "8600381118" && password == "123456"))  {
+            saveUserEntry()
             _loginResult.value = LoginResult(true)
         } else {
             _loginResult.value = LoginResult(false)
+        }
+    }
+
+    private fun saveUserEntry() {
+        viewModelScope.launch {
+            dataStoreManager.saveAppEntry()
         }
     }
 

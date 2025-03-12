@@ -1,6 +1,8 @@
 package com.bodakesatish.clinic.data.di
 
+import com.bodakesatish.clinic.data.repository.CheckupRepositoryImpl
 import com.bodakesatish.clinic.data.repository.PatientRepositoryImpl
+import com.bodakesatish.clinic.domain.repository.CheckupRepository
 import com.bodakesatish.clinic.domain.repository.PatientRepository
 import dagger.Binds
 import dagger.Module
@@ -15,5 +17,9 @@ interface  DataModule {
     @Binds
     @Singleton
     fun bindPatientRepository(patientRepositoryImpl: PatientRepositoryImpl): PatientRepository
+
+    @Binds
+    @Singleton
+    fun bindPatientCheckupRepository(checkupRepositoryImpl: CheckupRepositoryImpl): CheckupRepository
 
 }

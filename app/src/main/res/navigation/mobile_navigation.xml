@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.bodakesatish.clinic.ui.home.HomeFragment"
+        android:name="com.bodakesatish.clinic.ui.patientcheckuplist.PatientCheckupListFragment"
         android:label="@string/menu_checkups"
         tools:layout="@layout/fragment_home" />
 
@@ -28,5 +28,11 @@
         android:name="com.bodakesatish.clinic.ui.add.FragmentAddOrUpdatePatient"
         android:label="@string/menu_new_patient"
         tools:layout="@layout/fragment_add_or_update_patient"/>
+
+    <fragment
+        android:id="@+id/nav_add_or_update_checkup"
+        android:name="com.bodakesatish.clinic.ui.addpatientcheckup.FragmentAddOrUpdatePatientCheckup"
+        android:label="@string/menu_new_patient_checkup"
+        tools:layout="@layout/fragment_add_or_update_patient_check_up"/>
 
 </navigation>

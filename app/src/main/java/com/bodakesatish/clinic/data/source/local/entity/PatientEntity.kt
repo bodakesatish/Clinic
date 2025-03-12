@@ -14,7 +14,11 @@ data class PatientEntity(
     @ColumnInfo(Columns.LAST_NAME)
     val lastName: String,
     @ColumnInfo(Columns.PHONE)
-    val phone: String
+    val phone: String,
+    @ColumnInfo(Columns.GENDER)
+    val gender: String,
+    @ColumnInfo(Columns.AGE)
+    val age: Int
 ) {
 
     companion object {
@@ -26,6 +30,8 @@ data class PatientEntity(
         internal const val FIRST_NAME = "first_name"
         internal const val LAST_NAME = "last_name"
         internal const val PHONE = "phone"
+        internal const val GENDER = "gender"
+        internal const val AGE = "age"
     }
 
 }

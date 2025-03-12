@@ -5,10 +5,16 @@ import com.bodakesatish.clinic.domain.model.Patient
 
 object PatientMapper : Mapper<PatientEntity, Patient> {
     override fun PatientEntity.mapToDomainModel(): Patient {
-        return Patient(id = id, firstName = firstName, lastName = lastName, phone = phone)
+        return Patient(
+            id = id, firstName = firstName, lastName = lastName, phone = phone,
+            age = age, gender = gender
+        )
     }
 
     override fun Patient.mapFromDomainModel(): PatientEntity {
-        return PatientEntity(id = id, firstName = firstName, lastName = lastName, phone = phone)
+        return PatientEntity(
+            id = id, firstName = firstName, lastName = lastName, phone = phone,
+            age = age, gender = gender
+        )
     }
 }

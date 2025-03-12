@@ -20,7 +20,8 @@
             android:theme="@style/Theme.Clinic.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.BottomNav" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

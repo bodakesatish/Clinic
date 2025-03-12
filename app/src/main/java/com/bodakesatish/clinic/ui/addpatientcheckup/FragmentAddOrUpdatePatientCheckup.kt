@@ -1,4 +1,4 @@
-package com.bodakesatish.clinic.ui.add
+package com.bodakesatish.clinic.ui.addpatientcheckup
 
 import android.os.Bundle
 import android.util.Log
@@ -10,22 +10,20 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-//import androidx.navigation.fragment.navArgs
-import com.bodakesatish.clinic.databinding.FragmentAddOrUpdatePatientBinding
-import com.bodakesatish.clinic.ui.addpatientcheckup.AddOrUpdatePatientCheckupViewModel
+import com.bodakesatish.clinic.databinding.FragmentAddOrUpdatePatientCheckUpBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentAddOrUpdatePatient : Fragment() {
+class FragmentAddOrUpdatePatientCheckup : Fragment() {
 
-    private var _binding: FragmentAddOrUpdatePatientBinding? = null
+    private var _binding: FragmentAddOrUpdatePatientCheckUpBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: AddOrUpdatePatientViewModel by viewModels()
+    private val viewModel: AddOrUpdatePatientCheckupViewModel by viewModels()
 
     private val tag = this.javaClass.simpleName
 
@@ -37,7 +35,7 @@ class FragmentAddOrUpdatePatient : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddOrUpdatePatientBinding.inflate(inflater, container, false)
+        _binding = FragmentAddOrUpdatePatientCheckUpBinding.inflate(inflater, container, false)
         val root: View = binding.root
 //        args.customer?.let {
 //            viewModel.customer = it
@@ -61,24 +59,26 @@ class FragmentAddOrUpdatePatient : Fragment() {
 
     private fun initListeners() {
         // Update ViewModel when input fields change
-        binding.evPatientFirstName.editText?.doAfterTextChanged { editable ->
-            viewModel.customer.firstName = editable?.toString() ?: ""
+        binding.evPatientSymptoms.editText?.doAfterTextChanged { editable ->
+            viewModel.checkup.symptoms = editable?.toString() ?: ""
         }
-        binding.evPatientLastName.editText?.doAfterTextChanged { editable ->
-            viewModel.customer.lastName = editable?.toString() ?: ""
+        binding.evPatientMedicines.editText?.doAfterTextChanged { editable ->
+            viewModel.checkup.medicines = editable?.toString() ?: ""
         }
-        binding.evCustomerPhone.editText?.doAfterTextChanged { editable ->
-            viewModel.customer.phone = editable?.toString() ?: ""
+        binding.evOtherDetails.editText?.doAfterTextChanged { editable ->
+            viewModel.checkup.otherDetails = editable?.toString() ?: ""
         }
         binding.btnAdd.setOnClickListener {
-            if(binding.evPatientFirstName.editText.toString().isEmpty()) {
-                showSnackBar("Enter First name")
+            if(binding.evPatientSymptoms.editText.toString().isEmpty()) {
+                showSnackBar("Enter Symptoms")
+            } else if(binding.evPatientMedicines.editText.toString().isEmpty()) {
+                showSnackBar("Enter Medicines")
             } else {
-                viewModel.addOrUpdatePatient()
+                viewModel.addOrUpdatePatientCheckup()
             }
         }
-        viewModel.customerResponse.observe(viewLifecycleOwner) {
-            showSnackBar("CheckUp added successfully")
+        viewModel.checkupResponse.observe(viewLifecycleOwner) {
+            showSnackBar("Checkup added successfully")
             navigateToCustomerListScreen()
         }
 

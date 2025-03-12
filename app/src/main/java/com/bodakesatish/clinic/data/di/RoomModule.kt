@@ -30,4 +30,8 @@ object RoomModule {
     @Provides
     fun providesPatientDao(database: PatientDatabase) = database.patientDao()
 
+    @Singleton
+    @Provides
+    fun providesCheckupDao(database: PatientDatabase) = database.checkupDao()
+
 }

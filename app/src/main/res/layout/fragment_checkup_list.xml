@@ -20,7 +20,7 @@
         android:id="@+id/btn_new_patient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Patient"
+        android:text="Add CheckUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

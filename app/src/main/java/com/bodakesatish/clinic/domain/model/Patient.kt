@@ -6,5 +6,7 @@ data class Patient(
     val id: Int = 0,
     var firstName: String = "",
     var lastName: String = "",
-    var phone: String = ""
+    var phone: String = "",
+    var gender: String = "",
+    var age: Int = 0
 )

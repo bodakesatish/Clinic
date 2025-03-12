@@ -1,4 +1,4 @@
-package com.bodakesatish.clinic.ui.patientlist
+package com.bodakesatish.clinic.ui.patientcheckuplist
 
 import android.os.Bundle
 import android.util.Log
@@ -16,32 +16,32 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bodakesatish.clinic.R
+import com.bodakesatish.clinic.databinding.FragmentAddOrUpdatePatientCheckUpBinding
+import com.bodakesatish.clinic.databinding.FragmentCheckupListBinding
 import com.bodakesatish.clinic.databinding.FragmentGalleryBinding
-import com.bodakesatish.clinic.ui.patientcheckuplist.PatientCheckupListViewModel
 import com.bodakesatish.clinic.ui.patientcheckuplist.adapter.PatientCheckupListAdapter
-import com.bodakesatish.clinic.ui.patientlist.adapter.PatientListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PatientListFragment : Fragment() {
+class PatientCheckupListFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentCheckupListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: PatientListViewModel by viewModels()
+    private val viewModel: PatientCheckupListViewModel by viewModels()
 
-    private var patientAdapter : PatientListAdapter = PatientListAdapter()
+    private var patientAdapter : PatientCheckupListAdapter = PatientCheckupListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentCheckupListBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
@@ -75,7 +75,7 @@ class PatientListFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnNewPatient.setOnClickListener {
-            findNavController().navigate(R.id.nav_add_or_update_patient)
+            findNavController().navigate(R.id.nav_add_or_update_checkup)
         }
         patientAdapter.setOnClickListener {
 //            val action = FragmentCustomerListDirections.actionFragmentCustomerListToFragmentAddOrUpdateCustomer(it)
@@ -86,8 +86,8 @@ class PatientListFragment : Fragment() {
     private fun initObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.patientList.collect { data ->
-                    Log.d(tag, "$tag->initObservers collect->patients")
+                viewModel.patientCheckupList.collect { data ->
+                    Log.d(tag, "$tag->initObservers collect->patientsCheckUp")
                     // Update UI with the received data
                     patientAdapter.setData(data)
                 }
@@ -108,7 +108,7 @@ class PatientListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getCustomerList()
+        viewModel.getPatientCheckupList()
     }
 
     override fun onDestroyView() {

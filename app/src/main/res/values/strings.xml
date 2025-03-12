@@ -30,5 +30,7 @@
     <string name="menu_patient_list">Patient List</string>
     <string name="menu_new_patient">New Patient</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_new_patient_checkup">New CheckUp for Patient</string>
+
 
 </resources>
